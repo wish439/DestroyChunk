@@ -1,7 +1,5 @@
 package org.wishtoday.ps.destroychunk.mixin;
 
-import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -15,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.wishtoday.ps.destroychunk.Task.ClearBlocksTask;
+import org.wishtoday.ps.destroychunk.Task.Tasks.ClearBlocksTask;
 import org.wishtoday.ps.destroychunk.Task.TaskManager;
 
 import java.util.ArrayList;

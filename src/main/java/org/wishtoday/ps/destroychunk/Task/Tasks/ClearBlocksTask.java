@@ -1,10 +1,10 @@
-package org.wishtoday.ps.destroychunk.Task;
+package org.wishtoday.ps.destroychunk.Task.Tasks;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
+import org.wishtoday.ps.destroychunk.Task.Task;
 
 import java.util.Collection;
 import java.util.LinkedList;

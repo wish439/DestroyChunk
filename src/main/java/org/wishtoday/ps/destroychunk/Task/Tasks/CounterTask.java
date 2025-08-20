@@ -1,4 +1,6 @@
-package org.wishtoday.ps.destroychunk.Task;
+package org.wishtoday.ps.destroychunk.Task.Tasks;
+
+import org.wishtoday.ps.destroychunk.Task.Task;
 
 public class CounterTask implements Task {
     private int counter = 0;

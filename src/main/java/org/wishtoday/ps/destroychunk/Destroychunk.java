@@ -3,7 +3,7 @@ package org.wishtoday.ps.destroychunk;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import org.wishtoday.ps.destroychunk.Task.CounterTask;
+import org.wishtoday.ps.destroychunk.Task.Tasks.CounterTask;
 import org.wishtoday.ps.destroychunk.Task.TaskManager;
 
 public class Destroychunk implements ModInitializer {
