@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "destroychunk",
+  "version": "${version}",
+  "name": "DestroyChunk",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "LGPL-3.0",
+  "icon": "assets/destroychunk/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "org.wishtoday.ps.destroychunk.client.DestroychunkClient"
+    ],
+    "main": [
+      "org.wishtoday.ps.destroychunk.Destroychunk"
+    ]
+  },
+  "mixins": [
+    "destroychunk.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
