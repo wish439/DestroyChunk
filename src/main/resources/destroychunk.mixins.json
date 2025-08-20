@@ -4,6 +4,7 @@
   "package": "org.wishtoday.ps.destroychunk.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "LivingEntityMixin"
   ],
   "client": [
   ],
