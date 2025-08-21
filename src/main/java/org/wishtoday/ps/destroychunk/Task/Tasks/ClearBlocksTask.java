@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
+@SuppressWarnings("FieldMayBeFinal")
 public class ClearBlocksTask implements Task {
     private int maxNumInATick;
     private ServerWorld world;
@@ -21,16 +22,6 @@ public class ClearBlocksTask implements Task {
         this.world = world;
         this.maxNumInATick = maxNumInATick;
         this.queue = new LinkedList<>(blocks);
-    }
-    public ClearBlocksTask(ServerWorld world
-            , int maxNumInATick, BlockPos startPos, BlockPos endPos) {
-        this.world = world;
-        this.maxNumInATick = maxNumInATick;
-        Iterable<BlockPos> iterate = BlockPos.iterate(startPos, endPos);
-        this.queue = new LinkedList<>();
-        for (BlockPos blockPos : iterate) {
-            this.queue.add(blockPos);
-        }
     }
 
     @Override

@@ -11,4 +11,5 @@ public interface Task {
     void tickAction();
     boolean isFinished();
     boolean shouldStop();
+    default void onRemove(){};
 }

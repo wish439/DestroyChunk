@@ -10,6 +10,7 @@ public class TaskManager {
     private static TaskManager instance = new TaskManager();
     private final List<Task> tasks = Lists.newArrayList();
     private final List<Task> pendingTasks = new ArrayList<>();
+    private TaskManager() {}
 
     public static TaskManager getInstance() {
         return instance;
@@ -34,6 +35,7 @@ public class TaskManager {
         while (iterator.hasNext()) {
             Task task = iterator.next();
             if (task.isFinished()) {
+                task.onRemove();
                 iterator.remove();
                 continue;
             }

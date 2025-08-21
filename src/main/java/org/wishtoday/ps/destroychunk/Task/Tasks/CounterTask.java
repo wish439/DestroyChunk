@@ -5,6 +5,7 @@ import org.wishtoday.ps.destroychunk.Task.Task;
 
 import java.util.function.Consumer;
 
+@SuppressWarnings("FieldMayBeFinal")
 public class CounterTask implements Task {
     private int counter = 0;
     private boolean cancelled = false;
@@ -13,14 +14,12 @@ public class CounterTask implements Task {
     private int delay;
     private boolean stopAfterRun;
     private int countTick;
-    private boolean runOnSubmit = false;
 
     protected CounterTask(@Nullable Consumer<CounterTask> task, int delay, boolean runedBreak, int countTick, boolean runOnSubmit) {
         this.task = task;
         this.delay = Math.max(1, delay);
         this.stopAfterRun = runedBreak;
         this.countTick = countTick;
-        this.runOnSubmit = runOnSubmit;
 
         if (task == null) return;
         if (runOnSubmit) {
