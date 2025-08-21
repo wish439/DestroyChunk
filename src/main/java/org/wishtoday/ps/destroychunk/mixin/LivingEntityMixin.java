@@ -3,6 +3,7 @@ package org.wishtoday.ps.destroychunk.mixin;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -17,22 +18,20 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.wishtoday.ps.destroychunk.Task.Task;
 import org.wishtoday.ps.destroychunk.Task.Tasks.ClearBlocksTask;
 import org.wishtoday.ps.destroychunk.Task.TaskManager;
 import org.wishtoday.ps.destroychunk.Task.Tasks.CounterTask;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-    @Shadow protected abstract void consumeItem();
 
     @Inject(method = "damage", at = @At("RETURN"))
     private void onDamage(DamageSource source
             , float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (source.isOf(DamageTypes.OUT_OF_WORLD)) return;
         LivingEntity livingEntity = (LivingEntity) (Object) this;
         if (!(livingEntity instanceof PlayerEntity player)) return;
         World world = player.getWorld();
