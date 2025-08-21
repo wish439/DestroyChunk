@@ -4,23 +4,32 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.wishtoday.ps.destroychunk.Task.Task;
 import org.wishtoday.ps.destroychunk.Task.Tasks.ClearBlocksTask;
 import org.wishtoday.ps.destroychunk.Task.TaskManager;
+import org.wishtoday.ps.destroychunk.Task.Tasks.CounterTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Mixin(LivingEntity.class)
-public class LivingEntityMixin {
+public abstract class LivingEntityMixin {
+    @Shadow protected abstract void consumeItem();
+
     @Inject(method = "damage", at = @At("RETURN"))
     private void onDamage(DamageSource source
             , float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -45,6 +54,26 @@ public class LivingEntityMixin {
                 }
             }
         }
-        TaskManager.getInstance().addTask(new ClearBlocksTask((ServerWorld) world, 100 * 100, list));
+        ClearBlocksTask task = new ClearBlocksTask((ServerWorld) world, 100 * 100, list);
+        CounterTask counterTask1 = new CounterTask.Builder()
+                .setTask(counterTask -> {
+                    int remaining = 5 - (counterTask.getCounter() / 20);
+                    if (remaining < 0) remaining = 0;
+
+                    ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+                    serverPlayer.networkHandler.sendPacket(
+                            new TitleS2CPacket(Text.of(String.valueOf(remaining)))
+                    );
+
+                    if (remaining == 0) {
+                        TaskManager.getInstance().addTask(task);
+                        counterTask.setCancelled(true);
+                    }
+                })
+                .setDelay(20)
+                .setStopAfterRun(false)
+                .setRunOnSubmit(true)
+                .build();
+        TaskManager.getInstance().addTask(counterTask1);
     }
 }

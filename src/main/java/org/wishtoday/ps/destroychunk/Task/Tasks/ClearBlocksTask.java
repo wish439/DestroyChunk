@@ -34,9 +34,8 @@ public class ClearBlocksTask implements Task {
     }
 
     @Override
-    public void tick() {
+    public void beforeWhile() {
         processed = 0;
-        Task.super.tick();
     }
 
     @Override
