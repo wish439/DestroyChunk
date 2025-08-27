@@ -12,7 +12,6 @@ public class ClearChunkTask extends ClearBlocksTask {
         super(world, maxNumInATick, ChunkUtil.getBlocksPosFromChunk(chunk, world));
         this.chunk = chunk;
         helper.addToChunks(chunk);
-        System.out.println("ClearChunkTask#s i c");
     }
 
     @Override
