@@ -1,7 +1,6 @@
 package org.wishtoday.ps.destroychunk.Helper;
 
 import com.google.common.collect.Sets;
-import lombok.Getter;
 import net.minecraft.world.chunk.Chunk;
 
 import java.util.HashSet;
